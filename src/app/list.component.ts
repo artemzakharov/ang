@@ -20,7 +20,7 @@ import { Post, Query } from './types';
     </ul>
 
     <button (click)="refresh()">Refresh</button>
-  `
+  `,
 })
 export class ListComponent implements OnInit {
   postsRef: QueryRef<Query>;
@@ -45,9 +45,7 @@ export class ListComponent implements OnInit {
       `,
     });
 
-    this.posts = this.postsRef
-      .valueChanges
-      .map(result => result.data.posts);
+    this.posts = this.postsRef.valueChanges.map(result => result.data.posts);
   }
 
   refresh() {
