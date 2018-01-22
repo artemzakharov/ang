@@ -15,16 +15,23 @@ enableProdMode();
 // Express server
 const app = express();
 
-const PORT = process.env.PORT || 4200;
+const PORT = process.env.PORT || 8080;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // Our index.html we'll use as our template
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const template = readFileSync(
+  join(DIST_FOLDER, 'browser', 'index.html')
+).toString();
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const {
+  AppServerModuleNgFactory,
+  LAZY_MODULE_MAP,
+} = require('./dist/server/main.bundle');
 
-const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
+const {
+  provideModuleMap,
+} = require('@nguniversal/module-map-ngfactory-loader');
 
 app.engine('html', (_, options, callback) => {
   renderModuleFactory(AppServerModuleNgFactory, {
@@ -32,9 +39,7 @@ app.engine('html', (_, options, callback) => {
     document: template,
     url: options.req.url,
     // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
-    extraProviders: [
-      provideModuleMap(LAZY_MODULE_MAP)
-    ]
+    extraProviders: [provideModuleMap(LAZY_MODULE_MAP)],
   }).then(html => {
     callback(null, html);
   });

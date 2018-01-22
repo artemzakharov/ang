@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <app-list></app-list>
-  `
+  `,
 })
-export class AppComponent  {}
+export class AppComponent {}
