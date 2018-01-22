@@ -14,10 +14,10 @@ COPY package*.json ./
 RUN npm install
 
 # Get all the code needed to run the app
-COPY . .
+COPY . /usr/src/app
 
 # Expose the port the app runs in
 EXPOSE 4200
 
 # Serve the app
-CMD ["node", "dist/server.js"]
+CMD ["npm", "start"]
